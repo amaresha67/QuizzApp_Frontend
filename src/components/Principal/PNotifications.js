@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-
+import { useUrl } from "../../context/StoreContext";
 const PNotification = () => {
+  const { baseURL } = useUrl();
   const [teachers, setTeachers] = useState([]);
   const token = localStorage.getItem("token");
 
@@ -12,12 +13,9 @@ const PNotification = () => {
 
   const fetchTeachers = async () => {
     try {
-      const response = await fetch(
-        "http://localhost:3001/api/teachers/pending",
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
+      const response = await fetch(`${baseURL}/api/teachers/pending`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       if (!response.ok) throw new Error("Failed to fetch");
       const data = await response.json();
       console.log(data.teachersData);
@@ -30,20 +28,17 @@ const PNotification = () => {
 
   const handleAction = async (teacherId, allowStatus) => {
     try {
-      const response = await fetch(
-        "http://localhost:3001/api/teachers/updateAllow",
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            teacherId,
-            allow: allowStatus,
-          }),
-        }
-      );
+      const response = await fetch(`${baseURL}/api/teachers/updateAllow`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          teacherId,
+          allow: allowStatus,
+        }),
+      });
       console.log(response);
       if (!response.ok) {
         throw new Error("Failed to update status");

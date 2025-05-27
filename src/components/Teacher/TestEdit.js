@@ -1,6 +1,9 @@
 import { useEffect } from "react";
 import { useState } from "react";
+import { useUrl } from "../../context/StoreContext";
+
 const TestEdit = ({ setTestId, testId }) => {
+  const { baseURL } = useUrl();
   const teacherInfo = JSON.parse(localStorage.getItem("teacherInfo"));
 
   console.log("testid", testId);
@@ -60,12 +63,9 @@ const TestEdit = ({ setTestId, testId }) => {
   useEffect(() => {
     async function fetchData() {
       try {
-        const res = await fetch(
-          `http://localhost:3001/api/tests/getTest/${testId}`,
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          }
-        );
+        const res = await fetch(`${baseURL}/api/tests/getTest/${testId}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
         const result = await res.json();
         console.log(result.testDetails, result.questions);
         const updatedTestDetails = result.testDetails;
@@ -99,7 +99,7 @@ const TestEdit = ({ setTestId, testId }) => {
     console.log(testDetails, questions);
     try {
       const response = await fetch(
-        `http://localhost:3001/api/tests/updateTest/${testId}`,
+        `${baseURL}/api/tests/updateTest/${testId}`,
         {
           method: "POST",
           headers: {

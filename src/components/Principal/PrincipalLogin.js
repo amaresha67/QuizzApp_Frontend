@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useUrl } from "../../context/StoreContext";
 
 export default function PrincipalLogin() {
+  const { baseURL } = useUrl();
   const navigate = useNavigate();
 
   const [userName, setUserName] = useState("");
@@ -19,20 +21,17 @@ export default function PrincipalLogin() {
     event.preventDefault();
 
     try {
-      const response = await fetch(
-        "http://localhost:3001/api/principal/login",
-        {
-          // Replace with your backend API endpoint
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            userName,
-            password,
-          }),
-        }
-      );
+      const response = await fetch(`${baseURL}/api/principal/login`, {
+        // Replace with your backend API endpoint
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userName,
+          password,
+        }),
+      });
       console.log("status", response.status);
       if (response.ok) {
         if (response.status === 201) {

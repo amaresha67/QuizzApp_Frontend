@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useUrl } from "../../context/StoreContext";
+
 export default function StudentLogin() {
+  const { baseURL } = useUrl();
   const navigate = useNavigate();
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
@@ -17,7 +20,7 @@ export default function StudentLogin() {
     event.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:3001/api/students/login", {
+      const response = await fetch(`${baseURL}/api/students/login`, {
         // Replace with your backend API endpoint
         method: "POST",
         headers: {

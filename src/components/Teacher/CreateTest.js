@@ -1,5 +1,8 @@
 import { useState } from "react";
+import { useUrl } from "../../context/StoreContext";
+
 const CreateTest = () => {
+  const { baseURL } = useUrl();
   const teacherInfo = JSON.parse(localStorage.getItem("teacherInfo"));
 
   const [testDetails, setTestDetails] = useState({
@@ -61,7 +64,7 @@ const CreateTest = () => {
     console.log(testDetails, questions);
 
     try {
-      const response = await fetch("http://localhost:3001/api/tests/addTest", {
+      const response = await fetch(`${baseURL}/api/tests/addTest`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,

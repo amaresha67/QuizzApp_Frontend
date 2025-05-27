@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { useUrl } from "../../context/StoreContext";
 
 const StudentScores = () => {
+  const { baseURL } = useUrl();
   const token = localStorage.getItem("token");
   const [formData, setFormData] = useState({
     class: "",
@@ -24,7 +26,7 @@ const StudentScores = () => {
     setLoading(true);
 
     try {
-      const res = await fetch("http://localhost:3001/api/Score/getScores", {
+      const res = await fetch(`${baseURL}/api/Score/getScores`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,

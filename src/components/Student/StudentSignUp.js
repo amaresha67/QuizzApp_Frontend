@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { useUrl } from "../../context/StoreContext";
 
 function StudentSignup() {
+  const { baseURL } = useUrl();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [studentClass, setStudentClass] = useState("");
@@ -55,12 +57,9 @@ function StudentSignup() {
       phoneNumber,
       fatherName,
     });
-    // In a real application, you would send this data to your backend to create a new student account.
-    alert(
-      `Signing up Student with Name: ${firstName} ${lastName}, Class: ${studentClass}, Email: ${email}, Phone: ${phoneNumber}, Parents Name: ${fatherName}`
-    );
+
     try {
-      const response = await fetch("http://localhost:3001/api/students", {
+      const response = await fetch(`${baseURL}/api/students`, {
         // Replace with your backend API endpoint
         method: "POST",
         headers: {

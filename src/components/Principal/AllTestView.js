@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
+import { useUrl } from "../../context/StoreContext";
 const ViewAllTest = () => {
+  const { baseURL } = useUrl();
   const [data, setData] = useState([]);
   const [filteredTests, setFilteredTests] = useState([]);
   const [selectedClass, setSelectedClass] = useState("All");
@@ -12,7 +14,7 @@ const ViewAllTest = () => {
 
     async function fetchData() {
       try {
-        const res = await fetch("http://localhost:3001/api/tests/getTests", {
+        const res = await fetch(`${baseURL}/api/tests/getTests`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

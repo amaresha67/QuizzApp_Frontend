@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useUrl } from "../../context/StoreContext";
+
 const StudentHomeContent = ({ setTestId, testId }) => {
+  const { baseURL } = useUrl();
   const [data, setData] = useState([]);
   const [filteredTests, setFilteredTests] = useState([]);
   const [selectedSubject, setSelectedSubject] = useState("All");
@@ -18,7 +21,7 @@ const StudentHomeContent = ({ setTestId, testId }) => {
     async function fetchData() {
       try {
         const res = await fetch(
-          `http://localhost:3001/api/tests/getTests/${student.student_id}`,
+          `${baseURL}/api/tests/getTests/${student.student_id}`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }

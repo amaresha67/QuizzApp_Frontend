@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { UserCircle, FileText, BarChart, Bell } from "lucide-react";
+import { useUrl } from "../../context/StoreContext";
 
 const TeacherHomeContent = ({ setTestId, testId }) => {
+  const { baseURL } = useUrl();
   console.log("testid", testId);
   const [data, setData] = useState([]);
   const [filteredTests, setFilteredTests] = useState([]);
@@ -19,7 +21,7 @@ const TeacherHomeContent = ({ setTestId, testId }) => {
   useEffect(() => {
     async function fetchData() {
       try {
-        const res = await fetch("http://localhost:3001/api/tests/getTests", {
+        const res = await fetch(`${baseURL}/api/tests/getTests`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -72,7 +74,7 @@ const TeacherHomeContent = ({ setTestId, testId }) => {
   const handleDeleteTest = async (e, test_id) => {
     try {
       const response = await fetch(
-        `http://localhost:3001/api/tests/deleteTest/${test_id}`,
+        `${baseURL}/api/tests/deleteTest/${test_id}`,
         {
           method: "DELETE",
           headers: { Authorization: `Bearer ${token}` },

@@ -2,8 +2,10 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Type } from "lucide-react";
+import { useUrl } from "../../context/StoreContext";
 
 export default function TakeTest({ setTestId, testId }) {
+  const { baseURL } = useUrl();
   const navigate = useNavigate();
   const [answersByStudent, setAnswersByStudent] = useState([]);
   const [testDetails, setTestDetails] = useState({
@@ -33,12 +35,9 @@ export default function TakeTest({ setTestId, testId }) {
   useEffect(() => {
     async function fetchData() {
       try {
-        const res = await fetch(
-          `http://localhost:3001/api/tests/getTest/${testId}`,
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          }
-        );
+        const res = await fetch(`${baseURL}/api/tests/getTest/${testId}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
         const result = await res.json();
 
         const updatedTestDetails = result.testDetails;
@@ -115,21 +114,18 @@ export default function TakeTest({ setTestId, testId }) {
     console.log("score", score);
     async function sendData() {
       try {
-        const response = await fetch(
-          "http://localhost:3001/api/Score/insertScore",
-          {
-            method: "POST", // Use POST method
-            headers: {
-              Authorization: `Bearer ${token}`,
-              "Content-Type": "application/json", // Specify JSON data
-            },
-            body: JSON.stringify({
-              test_id: testId,
-              student_id: studentInfo.roll_number,
-              score: score,
-            }),
-          }
-        );
+        const response = await fetch(`${baseURL}/api/Score/insertScore`, {
+          method: "POST", // Use POST method
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json", // Specify JSON data
+          },
+          body: JSON.stringify({
+            test_id: testId,
+            student_id: studentInfo.roll_number,
+            score: score,
+          }),
+        });
 
         if (!response.ok) {
           throw new Error("Failed to send data");

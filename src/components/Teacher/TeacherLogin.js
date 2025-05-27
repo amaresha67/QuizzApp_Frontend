@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useUrl } from "../../context/StoreContext";
 
 export default function TeacherLogin() {
+  const { baseURL } = useUrl();
   const navigate = useNavigate();
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
@@ -17,7 +19,7 @@ export default function TeacherLogin() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await fetch("http://localhost:3001/api/teachers/login", {
+      const response = await fetch(`${baseURL}/api/teachers/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
