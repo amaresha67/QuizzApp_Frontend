@@ -79,6 +79,23 @@ const CreateTest = () => {
 
       const data = await response.json();
       if (response.ok) {
+      alert("✅ Test created successfully!");
+      // Reset testDetails and questions to initial state
+      setTestDetails({
+        title: "",
+        subject: teacherInfo.subject,
+        class: "",
+        duration: "",
+        scheduled_at: "",
+      });
+
+      setQuestions([
+        {
+          questionText: "",
+          options: ["", "", "", ""],
+          correctAnswerIndex: 0,
+        },
+      ]);
         console.log("Test created successfully", data);
       } else {
         console.error("Error:", data.message);
