@@ -61,6 +61,7 @@ const CreateTest = () => {
 
   // Handle form submission
   const handleSubmit = async () => {
+     e.preventDefault(); 
     console.log(testDetails, questions);
 
     try {
