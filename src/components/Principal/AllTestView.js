@@ -52,10 +52,10 @@ const ViewAllTest = () => {
   const now = new Date();
 
   const completedTests = filteredTests.filter(
-    (test) => new Date(test.scheduled_at) < now
+    (test) => new Date(test.scheduled_at) > now
   );
   const uncompletedTests = filteredTests.filter(
-    (test) => new Date(test.scheduled_at) >= now
+    (test) => new Date(test.scheduled_at) <= now
   );
 
   const TestListSection = ({ title, tests }) => (
