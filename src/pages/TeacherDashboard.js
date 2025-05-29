@@ -1,4 +1,5 @@
 import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min.js"; // Includes Popper
 import { Outlet } from "react-router-dom";
 import { Link } from "react-router-dom";
 // import { useState } from "react";

@@ -105,7 +105,7 @@ const StudentHomeContent = ({ setTestId, testId }) => {
               <div className="col-3">{test.scheduled_at}</div>
               <div className="col-2">{test.duration}</div>
               <div className="col-3">
-                {title == "Uncompleted Tests" ? (
+                {title === "Uncompleted Tests" ? (
                   <button
                     className="btn btn-sm btn-outline-primary me-2"
                     onClick={() => handleTakeTest(test.test_id)}

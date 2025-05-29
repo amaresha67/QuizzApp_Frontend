@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { UserCircle, FileText, BarChart, Bell } from "lucide-react";
+import { Bell } from "lucide-react";
 import { useUrl } from "../../context/StoreContext";
 
 const TeacherHomeContent = ({ setTestId, testId }) => {
