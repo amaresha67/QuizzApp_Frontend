@@ -95,7 +95,8 @@ const TestEdit = ({ setTestId, testId }) => {
     fetchData();
   }, []);
   // Handle form submission
-  const handleUpdate = async () => {
+  const handleUpdate = async (e) => {
+       e.preventDefault(); 
     console.log(testDetails, questions);
     try {
       const response = await fetch(
